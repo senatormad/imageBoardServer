@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 BuildGram - nodejs image board server
+  p Supported routes:
+  ul
+    each val in apiList
+      li= val
+  p For more info visit git repo #[a( href='https://github.com/senatormad/buildgram' ) here]
