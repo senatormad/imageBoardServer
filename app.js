@@ -1,35 +1,29 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var passport = require('passport');
-var config = require('./config');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var postsRouter = require('./routes/postsRouter');
-var uploadRouter = require('./routes/uploadRouter');
-
-
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const passport = require('passport');
 const mongoose = require('mongoose');
 
+const config = require('./config');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/postsRouter');
+const uploadRouter = require('./routes/uploadRouter');
+
 const url = config.mongoUrl;
-const connect = mongoose.connect(url);
+const connect = mongoose.connect(url, { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true });
+
+const app = express();
 
 connect.then((db) => {
-    console.log("Connected correctly to server");
+  console.log('Connected correctly to server');
 }, (err) => { console.log(err); });
-
-var app = express();
 
 // Secure traffic only
 app.all('*', (req, res, next) => {
-  if (req.secure) {
-    return next();
-  }
-  else {
-    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
-  }
+  if (req.secure) return next();
+  return res.redirect(307, `https://${req.hostname}:${app.get('secPort')}${req.url}`);
 });
 
 // view engine setup
@@ -48,16 +42,15 @@ app.use('/posts', postsRouter);
 app.use('/imageUpload', uploadRouter);
 
 
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
