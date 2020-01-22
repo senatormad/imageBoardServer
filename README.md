@@ -1,5 +1,7 @@
 ## imageBoardServer
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e8400b46cec74afca9bc38cc38dfae9e)](https://app.codacy.com/manual/senator.mad/imageBoardServer?utm_source=github.com&utm_medium=referral&utm_content=senatormad/imageBoardServer&utm_campaign=Badge_Grade_Dashboard)
+
 nodejs image board server
 
 Supported routes:
