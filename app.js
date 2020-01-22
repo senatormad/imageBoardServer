@@ -12,7 +12,11 @@ const postsRouter = require('./routes/postsRouter');
 const uploadRouter = require('./routes/uploadRouter');
 
 const url = config.mongoUrl;
-const connect = mongoose.connect(url, { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true });
+const connect = mongoose.connect(url, {
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
 
 const app = express();
 
