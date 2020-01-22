@@ -33,8 +33,6 @@ Supported routes:
         GET Everybody  
         PUT User that created the comment  
         DELETE User that created the comment  
-          
+
 -   {hostUrl}/imageUpload/  
-        POST Registered users  
-
-
+        POST Registered users
